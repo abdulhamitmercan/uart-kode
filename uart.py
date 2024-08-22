@@ -8,6 +8,7 @@ while True:
     # Seri porttan 1 byte veri okuyoruz
     received_data = ser.read()
     #abdul
+    
     # 30 milisaniye bekliyoruz. Bu, verinin gelmesini beklemek için kullanılır.
     # Özellikle seri porttan gelen verilerin tam olarak alınabilmesi için bu süre zarfında
     # veri akışını gözlemleyebiliriz. Bu, veri kaybını önlemek için önemlidir.
