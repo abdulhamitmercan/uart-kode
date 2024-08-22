@@ -4,7 +4,7 @@ http://www.electronicwings.com
 '''
 import serial
 from time import sleep
-
+received_data = ""
 ser = serial.Serial ("/dev/ttyS0", 9600)    #Open port with baud rate
 while True:
     #received_data = ser.read()              #read serial port
