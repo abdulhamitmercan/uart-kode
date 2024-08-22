@@ -19,4 +19,4 @@ while True:
     if ser.in_waiting > 0:  # Seri portta veri varsa
         received_data = ser.read()  # Tüm veriyi oku
         print(received_data.decode('utf-8', errors='ignore'))  # Veriyi çöz ve yazdır
-    sleep(0.1)  # Döngü hızını ayarla
+    sleep(0.001)  # Döngü hızını ayarla
