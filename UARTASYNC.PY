@@ -13,7 +13,7 @@ def format_message(message):
 async def send_message(message):
     while True:
         formatted_message = format_message(message)  # Mesajı formata uygun hale getir
-        print(f"Gönderilen mesaj: {formatted_message}")
+        print(f"Gönderilen mesaj: {formatted_message.decode}")
         await asyncio.sleep(2)
         ser.write(formatted_message)  # Seri porta yaz
 
