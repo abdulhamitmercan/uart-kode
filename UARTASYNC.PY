@@ -28,6 +28,6 @@ async def receive_message():
         await asyncio.sleep(0.1)
 
 async def main():
-    await asyncio.gather(send_message(" bura "), receive_message())  # Mesajınızı buraya yazabilirsiniz
+    await asyncio.gather(send_message(" bura ü"), receive_message())  # Mesajınızı buraya yazabilirsiniz
 
 asyncio.run(main())
