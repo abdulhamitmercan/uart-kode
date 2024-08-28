@@ -8,9 +8,9 @@ ser = serial.Serial("/dev/ttyS0", 9600)
 async def send_message(message):
     while True:
         print(f"gonderilen mesaj:{message}")
-        
-        ser.write(message.encode()) 
         await asyncio.sleep(2)
+        ser.write(message.encode()) 
+       
 async def recieve_message():
     while True:
         if ser.in_waiting: 
