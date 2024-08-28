@@ -10,7 +10,7 @@ async def send_message(message):
         print(f"gonderilen mesaj:{message}")
         
         ser.write(message.encode()) 
-        await asyncio.sleep(1)
+        await asyncio.sleep(2)
 async def recieve_message():
     while True:
         if ser.in_waiting: 
