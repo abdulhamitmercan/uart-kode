@@ -5,11 +5,22 @@ import asyncio
 # Seri portu açıyoruz ve baud rate olarak 9600 bps (bit per second) kullanıyoruz
 ser = serial.Serial("/dev/ttyS0", 9600)
 
+def format_message(message):
+    # Mesajı 6 byte'a ayarla, gerekirse kısalt veya boşlukla doldur
+    formatted_message = message[:6].ljust(6)
+    # Başına 'b', sonuna 'k' ekle
+    return f"b{formatted_message}k".encode()  # 8 byte'lık mesajı encode et
+
+
+
 async def send_message(message):
     while True:
-        print(f"gonderilen mesaj:{message}")
+        formatted_message = format_message(message)
+        print(f"gonderilen mesaj:{formatted_message}")
         await asyncio.sleep(2)
-        ser.write(message.encode()) 
+        ser.write(formatted_message) 
+   
+   
        
 async def recieve_message():
     while True:
