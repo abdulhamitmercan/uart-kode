@@ -9,7 +9,7 @@ async def send_message(message):
     while True:
         print("gonderilen mesaj:"+{message})
         await asyncio.sleep(2)
-        ser.write(message) 
+        ser.write(message.encode()) 
         
 async def recieve_message():
     while True:
@@ -17,8 +17,8 @@ async def recieve_message():
         await asyncio.sleep(0.03) 
         data_left = ser.inWaiting() 
         received_data += ser.read(data_left) 
-        print("alinan veri"+{received_data}) 
-        
+        print(f"alinan veri :{received_data.decode(errors='ignore')}" ) 
+        await asyncio.sleep(0.1)
 async def main():
     results = await asyncio.gather(send_message("abdulhamit"),recieve_message())
 
