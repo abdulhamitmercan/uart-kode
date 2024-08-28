@@ -23,7 +23,7 @@ async def recieve_message():
         await asyncio.sleep(0.1)
         
 async def main():
-    results = await asyncio.gather(send_message("abdulhamit"),recieve_message())
+     await asyncio.gather(send_message("abdulhamit"), recieve_message())
 
 
  
