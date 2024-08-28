@@ -17,7 +17,7 @@ async def recieve_message():
             
             received_data = ser.read()      
             await asyncio.sleep(0.03) 
-            data_left = ser.inWaiting() 
+            data_left = ser.in_waiting 
             received_data += ser.read(data_left) 
             print(f"alinan veri :{received_data.decode(errors='ignore')}" ) 
         await asyncio.sleep(0.1)
