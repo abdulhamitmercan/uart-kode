@@ -91,7 +91,7 @@ async def send_message():
         print("Alınan veri bayt bayt:")
             
         for index, byte in enumerate(formatted_message):
-                print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır
+                print(f"Bayt {index}: {byte}")  # Her baytı hexadecimal olarak yazdır
         await asyncio.sleep(2)
         ser.write(formatted_message)  # Seri porta yaz
 
