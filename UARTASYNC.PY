@@ -1,6 +1,6 @@
 import serial
 import asyncio
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 # Komut ve mesaj türleri
 SET_DATA = 0
@@ -64,7 +64,6 @@ class UARTFrame:
     def set_dataL(self, value):
         self.dataL = value & 0xFF
 
-# UARTFrame nesnesi oluşturuluyor
 frame = UARTFrame()
 
 # Seri portu açıyoruz ve baud rate olarak 9600 bps (bit per second) kullanıyoruz
@@ -112,4 +111,3 @@ async def main():
     await asyncio.gather(send_message(), receive_message())
 
 asyncio.run(main())
-
