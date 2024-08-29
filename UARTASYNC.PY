@@ -87,7 +87,7 @@ def format_message():
 async def send_message():
     while True:
         formatted_message = format_message()  # Mesajı formata uygun hale getir
-        print(f"Gönderilen mesaj: {formatted_message}")
+        print(f"Gönderilen mesaj: {formatted_message.decode('utf-8')}")
         await asyncio.sleep(2)
         ser.write(formatted_message)  # Seri porta yaz
 
@@ -98,7 +98,7 @@ async def receive_message():
             await asyncio.sleep(0.03) 
             data_left = ser.in_waiting 
             received_data += ser.read(data_left) 
-            print(f"Alınan veri: {received_data.decode(errors='ignore')}")
+            print(f"Alınan veri: {received_data.decode(2)}")
         await asyncio.sleep(0.1)
 
 # Frame değerlerini set ediyoruz
