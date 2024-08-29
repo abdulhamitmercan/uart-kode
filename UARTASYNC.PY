@@ -82,12 +82,12 @@ def format_message():
         frame.eof,
     ]
 
-    return bytearray(byte_list).encode()  # bytearray ile döndür
+    return bytearray(byte_list)  # bytearray ile döndür
 
 async def send_message():
     while True:
         formatted_message = format_message()  # Mesajı formata uygun hale getir
-        print(f"Gönderilen mesaj: {formatted_message.decode('utf-8')}")
+        print(f"Alınan veri: {formatted_message.decode(errors='ignore')}")
         await asyncio.sleep(2)
         ser.write(formatted_message)  # Seri porta yaz
 
