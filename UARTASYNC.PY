@@ -88,6 +88,10 @@ async def send_message():
     while True:
         formatted_message = format_message()  # Mesajı formata uygun hale getir
         print(f"Alınan veri: {formatted_message}")
+        print("Alınan veri bayt bayt:")
+            
+        for index, byte in enumerate(formatted_message):
+                print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır
         await asyncio.sleep(2)
         ser.write(formatted_message)  # Seri porta yaz
 
@@ -100,6 +104,8 @@ async def receive_message():
             received_data += ser.read(data_left) 
             print(f"Alınan veri: {received_data.decode(2)}")
         await asyncio.sleep(0.1)
+
+
 
 # Frame değerlerini set ediyoruz
 frame.set_cmd_type(SET_DATA)
