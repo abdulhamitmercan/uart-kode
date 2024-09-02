@@ -93,7 +93,7 @@ def rawdata_to_uartformat_recieve_message(recieved_message):
     for index, byte in enumerate(recieved_message):
         byte_list[index] = byte
 
-    if byte_list[0] == 0x62 and byte_list[3] == 0x00 and byte_list[4] == 0x00 and byte_list[7] == 0x6B:
+    if byte_list[0] == 0x62 and byte_list[7] == 0x6B:
         recieveframe.set_cmd_type(byte_list[1])
         recieveframe.set_msg_type(byte_list[2])
         recieveframe.set_dataH(byte_list[5])
@@ -121,7 +121,10 @@ async def send_message():
 async def receive_message():
     while True:
         if ser.in_waiting >= 8:  # En az 8 bayt bekleyin
-            received_data = ser.read(8)  # Tam 8 bayt oku
+            received_data = ser.read()  
+            await asyncio.sleep(0.03)
+            data_left = ser.in_waiting
+            received_data += ser.read(data_left)
             solved_message = rawdata_to_uartformat_recieve_message(received_data)
             
             if solved_message:
