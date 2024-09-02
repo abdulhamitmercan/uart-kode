@@ -93,9 +93,11 @@ def rawdata_to_uartformat_recieve_message(recieved_message):
         recieveframe.set_msg_type(byte_list[2])
         recieveframe.set_dataH(byte_list[5])
         recieveframe.set_dataL(byte_list[6])
+        return byte_list
     else:
         print("hatalı mesage alındı")
-
+        return None
+     
 async def send_message():
     while True:
         formatted_message = uartformat_to_rawdata_send_message()  # Mesajı formata uygun hale getir
@@ -119,8 +121,12 @@ async def receive_message():
             received_data += ser.read(data_left) 
             solved_message = rawdata_to_uartformat_recieve_message(received_data) #alınan mesajı Mesajı formata uygun hale getir
             
-            for index, byte in enumerate(solved_message):
-                 print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır
+            if solved_message:
+                for index, byte in enumerate(solved_message):
+                    print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır
+            else:
+                print("Geçersiz veri alındı.")
+
         
         await asyncio.sleep(0.1)
 
