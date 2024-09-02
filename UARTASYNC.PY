@@ -122,7 +122,7 @@ async def receive_message():
     while True:
         if ser.in_waiting >= 8:  # En az 8 bayt bekleyin
             received_data = ser.read(8)  # Tam 8 bayt oku
-            rawdata_to_uartformat_recieve_message(received_data)
+            solved_message = rawdata_to_uartformat_recieve_message(received_data)
             
             if solved_message:
                 print("alınan veri:")
