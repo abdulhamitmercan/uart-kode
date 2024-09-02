@@ -88,23 +88,23 @@ def rawdata_to_uartformat_recieve_message(recieved_message):
     if len(recieved_message) != 8:
         print("Geçersiz mesaj uzunluğu:", len(recieved_message))
         return None
+    else :
+        byte_list = [0] * 8
+        for index, byte in enumerate(recieved_message):
+            byte_list[index] = byte
 
-    byte_list = [0] * 8
-    for index, byte in enumerate(recieved_message):
-        byte_list[index] = byte
-
-    if byte_list[0] == 0x62 and byte_list[3] == 0x00 and byte_list[4] == 0x00 and byte_list[7] == 0x6B:
-        recieveframe.set_cmd_type(byte_list[1])
-        recieveframe.set_msg_type(byte_list[2])
-        recieveframe.set_dataH(byte_list[5])
-        recieveframe.set_dataL(byte_list[6])
-        recieve_message_err_status = 0
-        return recieve_message_err_status
-        
-    else:
-        print("Hatalı mesaj alındı")
-        recieve_message_err_status = 1
-        return recieve_message_err_status
+        if byte_list[0] == 0x62 and byte_list[3] == 0x00 and byte_list[4] == 0x00 and byte_list[7] == 0x6B:
+            recieveframe.set_cmd_type(byte_list[1])
+            recieveframe.set_msg_type(byte_list[2])
+            recieveframe.set_dataH(byte_list[5])
+            recieveframe.set_dataL(byte_list[6])
+            recieve_message_err_status = 0
+            return recieve_message_err_status
+            
+        else:
+            print("Hatalı mesaj alındı")
+            recieve_message_err_status = 1
+            return recieve_message_err_status
 
 async def send_message():
     while True:
