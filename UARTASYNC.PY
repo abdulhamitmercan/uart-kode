@@ -101,7 +101,7 @@ def rawdata_to_uartformat_recieve_message(recieved_message):
         return byte_list
     else:
         print("Hatalı mesaj alındı")
-        return None
+        return byte_list
 
 async def send_message():
     while True:
