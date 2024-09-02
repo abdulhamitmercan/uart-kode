@@ -64,54 +64,73 @@ class UARTFrame:
     def set_dataL(self, value):
         self.dataL = value & 0xFF
 
-frame = UARTFrame()
-
+sendframe = UARTFrame()
+recieveframe = UARTFrame()
 # Seri portu açıyoruz ve baud rate olarak 9600 bps (bit per second) kullanıyoruz
 ser = serial.Serial("/dev/ttyS0", 9600)
 
-def format_message():
+def uartformat_to_rawdata_send_message(): 
     # Bayt listesini set ve get metodlarıyla oluşturuyoruz
     byte_list = [
-        frame.header,
-        frame.get_cmd_type(),
-        frame.get_msg_type(),
-        frame.rsv1,
-        frame.rsv0,
-        frame.get_dataH(),
-        frame.get_dataL(),
-        frame.eof,
+        sendframe.header,
+        sendframe.get_cmd_type(),
+        sendframe.get_msg_type(),
+        sendframe.rsv1,
+        sendframe.rsv0,
+        sendframe.get_dataH(),
+        sendframe.get_dataL(),
+        sendframe.eof,
     ]
 
     return bytearray(byte_list)  # bytearray ile döndür
+def rawdata_to_uartformat_recieve_message(recieved_message):
+    byte_list = [0] * 8
+    for index, byte in enumerate(recieved_message): 
+        byte_list[index] = byte
+
+    if byte_list[0] == 0x62 & byte_list[3] == 0x00 & byte_list[4] == 0x00 & byte_list[7] == 0x6B:
+        recieveframe.set_cmd_type(byte_list[1])  
+        recieveframe.set_msg_type(byte_list[2])
+        recieveframe.set_dataH(byte_list[5])
+        recieveframe.set_dataL(byte_list[6])
+    else:
+        print("hatalı mesage alındı")
 
 async def send_message():
     while True:
-        formatted_message = format_message()  # Mesajı formata uygun hale getir
+        formatted_message = uartformat_to_rawdata_send_message()  # Mesajı formata uygun hale getir
         print(f"Alınan veri: {formatted_message}")
-        print("Alınan veri bayt bayt:")
-            
+        
+        """print("Alınan veri bayt bayt:")
         for index, byte in enumerate(formatted_message):
-                print(f"Bayt {index}: {byte}")  # Her baytı hexadecimal olarak yazdır
+                print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır"""
+                
         await asyncio.sleep(2)
         ser.write(formatted_message)  # Seri porta yaz
 
 async def receive_message():
     while True:
         if ser.in_waiting: 
-            received_data = ser.read()      
+            received_data = ser.read()  
+                
             await asyncio.sleep(0.03) 
+            
             data_left = ser.in_waiting 
             received_data += ser.read(data_left) 
-            print(f"Alınan veri: {received_data.decode(2)}")
+            solved_message = rawdata_to_uartformat_recieve_message(received_data) #alınan mesajı Mesajı formata uygun hale getir
+            
+            for index, byte in enumerate(solved_message):
+                 print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır
+        
         await asyncio.sleep(0.1)
 
 
 
 # Frame değerlerini set ediyoruz
-frame.set_cmd_type(SET_DATA)
-frame.set_msg_type(RUN_CTRL)
-frame.set_dataH(0x04)
-frame.set_dataL(0x05)
+sendframe.set_cmd_type(SET_DATA)
+sendframe.set_msg_type(RUN_CTRL)
+sendframe.set_dataH(0x04)
+sendframe.set_dataL(0x05)
 
 async def main():
     await asyncio.gather(send_message(), receive_message())
