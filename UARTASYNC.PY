@@ -98,7 +98,10 @@ def rawdata_to_uartformat_recieve_message(recieved_message):
         recieveframe.set_msg_type(byte_list[2])
         recieveframe.set_dataH(byte_list[5])
         recieveframe.set_dataL(byte_list[6])
-        return recieveframe
+        byte_list2 = [0] * 8
+        for index, byte in enumerate(recieved_message):
+            byte_list2[index] = byte
+        return byte_list2
     else:
         print("Hatalı mesaj alındı")
         return byte_list
@@ -119,7 +122,7 @@ async def receive_message():
     while True:
         if ser.in_waiting >= 8:  # En az 8 bayt bekleyin
             received_data = ser.read(8)  # Tam 8 bayt oku
-            solved_message = rawdata_to_uartformat_recieve_message(received_data)
+            rawdata_to_uartformat_recieve_message(received_data)
             
             if solved_message:
                 print("alınan veri:")
