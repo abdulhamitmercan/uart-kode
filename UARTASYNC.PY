@@ -133,7 +133,7 @@ async def receive_message():
                     print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır
             else:
                 print("Geçersiz veri alındı.")
-            print(recieveframe.get_msg_type)
+            print(recieveframe.get_msg_type())
         await asyncio.sleep(0.1)
 
 
