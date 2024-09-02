@@ -122,6 +122,7 @@ async def receive_message():
             solved_message = rawdata_to_uartformat_recieve_message(received_data)
             
             if solved_message:
+                print("alınan veri:")
                 for index, byte in enumerate(solved_message):
                     print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır
             else:
