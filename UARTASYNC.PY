@@ -83,21 +83,26 @@ def uartformat_to_rawdata_send_message():
     ]
 
     return bytearray(byte_list)  # bytearray ile döndür
+
 def rawdata_to_uartformat_recieve_message(recieved_message):
+    if len(recieved_message) != 8:
+        print("Geçersiz mesaj uzunluğu:", len(recieved_message))
+        return None
+
     byte_list = [0] * 8
-    for index, byte in enumerate(recieved_message): 
+    for index, byte in enumerate(recieved_message):
         byte_list[index] = byte
 
-    if byte_list[0] == 0x62 & byte_list[3] == 0x00 & byte_list[4] == 0x00 & byte_list[7] == 0x6B:
-        recieveframe.set_cmd_type(byte_list[1])  
+    if byte_list[0] == 0x62 and byte_list[3] == 0x00 and byte_list[4] == 0x00 and byte_list[7] == 0x6B:
+        recieveframe.set_cmd_type(byte_list[1])
         recieveframe.set_msg_type(byte_list[2])
         recieveframe.set_dataH(byte_list[5])
         recieveframe.set_dataL(byte_list[6])
         return byte_list
     else:
-        print("hatalı mesage alındı")
+        print("Hatalı mesaj alındı")
         return None
-     
+
 async def send_message():
     while True:
         formatted_message = uartformat_to_rawdata_send_message()  # Mesajı formata uygun hale getir
@@ -112,23 +117,18 @@ async def send_message():
 
 async def receive_message():
     while True:
-        if ser.in_waiting: 
-            received_data = ser.read()  
-                
-            await asyncio.sleep(0.03) 
-            
-            data_left = ser.in_waiting 
-            received_data += ser.read(data_left) 
-            solved_message = rawdata_to_uartformat_recieve_message(received_data) #alınan mesajı Mesajı formata uygun hale getir
+        if ser.in_waiting >= 8:  # En az 8 bayt bekleyin
+            received_data = ser.read(8)  # Tam 8 bayt oku
+            solved_message = rawdata_to_uartformat_recieve_message(received_data)
             
             if solved_message:
                 for index, byte in enumerate(solved_message):
                     print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır
             else:
                 print("Geçersiz veri alındı.")
-
-        
+            
         await asyncio.sleep(0.1)
+
 
 
 
