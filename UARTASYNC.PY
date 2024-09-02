@@ -101,9 +101,9 @@ def rawdata_to_uartformat_recieve_message(recieved_message):
 async def send_message():
     while True:
         formatted_message = uartformat_to_rawdata_send_message()  # Mesajı formata uygun hale getir
-        print(f"Alınan veri: {formatted_message}")
+        print(f"gönderilen veri: {formatted_message}")
         
-        """print("Alınan veri bayt bayt:")
+        """print("gönderilen veri bayt bayt:")
         for index, byte in enumerate(formatted_message):
                 print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır"""
                 
