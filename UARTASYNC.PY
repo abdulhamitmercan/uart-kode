@@ -93,25 +93,23 @@ def rawdata_to_uartformat_recieve_message(recieved_message):
     for index, byte in enumerate(recieved_message):
         byte_list[index] = byte
 
-    if byte_list[0] == 0x62 and byte_list[7] == 0x6B:
+    if byte_list[0] == 0x62 and byte_list[3] == 0x00 and byte_list[4] == 0x00 and byte_list[7] == 0x6B:
         recieveframe.set_cmd_type(byte_list[1])
         recieveframe.set_msg_type(byte_list[2])
         recieveframe.set_dataH(byte_list[5])
         recieveframe.set_dataL(byte_list[6])
-        return None
+        recieve_message_err_status = 0
+        return recieve_message_err_status
         
     else:
         print("Hatalı mesaj alındı")
-        return byte_list
+        recieve_message_err_status = 1
+        return recieve_message_err_status
 
 async def send_message():
     while True:
         formatted_message = uartformat_to_rawdata_send_message()  # Mesajı formata uygun hale getir
-        print(f"gönderilen veri: {formatted_message}")
-        
-        """print("gönderilen veri bayt bayt:")
-        for index, byte in enumerate(formatted_message):
-                print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır"""
+       # print(f"gönderilen veri: {formatted_message}")
                 
         await asyncio.sleep(2)
         ser.write(formatted_message)  # Seri porta yaz
@@ -123,11 +121,11 @@ async def receive_message():
             await asyncio.sleep(0.03)
             data_left = ser.in_waiting
             received_data += ser.read(data_left)
-            solved_message = rawdata_to_uartformat_recieve_message(received_data)
+            recieve_message_err_status = rawdata_to_uartformat_recieve_message(received_data)
             
-            if solved_message != None:
-                print("alınan veri:")
-                for index, byte in enumerate(solved_message):
+            if recieve_message_err_status == 1:  # formatta hata varsa veriyi yazdırır 
+                print("alınan veri:") 
+                for index, byte in enumerate(received_data):
                     print(f"Bayt {index}: {byte:02X}")  # Her baytı hexadecimal olarak yazdır
 
             print(recieveframe.get_msg_type())
