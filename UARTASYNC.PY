@@ -98,7 +98,7 @@ def rawdata_to_uartformat_recieve_message(recieved_message):
         recieveframe.set_msg_type(byte_list[2])
         recieveframe.set_dataH(byte_list[5])
         recieveframe.set_dataL(byte_list[6])
-        return byte_list
+        return recieveframe
     else:
         print("Hatalı mesaj alındı")
         return byte_list
