@@ -57,8 +57,7 @@ class UartProtokol:
     async def handleUartFrame(self):
         # Debugging initial frame values
         print("Initial frame values:")
-        print(f"Cmd Type: {recieveframe.get_cmd_type()}")
-        print(f"Msg Type: {recieveframe.get_msg_type()}")
+
         recieveframe.set_cmd_type(READ_DATA_RESPONSE)
         recieveframe.set_dataH(0)
         recieveframe.set_dataL(1)
