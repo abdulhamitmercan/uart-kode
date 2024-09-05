@@ -3,6 +3,7 @@ import serial
 import asyncio
 from dataclasses import dataclass
 
+
 #Komut ve mesaj türleri
 SET_DATA = 0
 SET_DATA_RESPONSE = 1
