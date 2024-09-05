@@ -58,10 +58,6 @@ class UartProtokol:
         # Debugging initial frame values
         print("Initial frame values:")
 
-        recieveframe.set_cmd_type(READ_DATA_RESPONSE)
-        recieveframe.set_dataH(0)
-        recieveframe.set_dataL(1)
-        recieveframe.set_msg_type(PRMS)
         
         while True:
             if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
@@ -73,7 +69,8 @@ class UartProtokol:
 
 
 async def main():
-    myUart = UartProtokol()
-    await asyncio.gather(myUart.handleUartFrame())
+    rxtx_fonk = RxTxFonk()
+    myUart = UartProtokol()    
+    await asyncio.gather(rxtx_fonk.send_message(), rxtx_fonk.receive_message(), myUart.handleUartFrame())
     
 asyncio.run(main())
