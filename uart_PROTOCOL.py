@@ -1,9 +1,7 @@
-from UARTASYNC1 import UARTFrame, send_message, receive_message,recieveframe,sendframe,RxTxFonk 
+from UARTASYNC1 import UARTFrame, send_message, receive_message, recieveframe, sendframe, RxTxFonk
 import asyncio
-from dataclasses import dataclass
 
-
-#Komut ve mesaj türleri
+# Command and message types
 SET_DATA = 0
 SET_DATA_RESPONSE = 1
 READ_DATA = 2
@@ -18,15 +16,14 @@ PRMS = 5
 ERR_STATUS = 6
 CHARGE_FINISHED = 7
 CLEAR_CHARGE = 8
-END_TRANSACTION__SEND =9
+END_TRANSACTION__SEND = 9
 CHARGING_STATUS = 10 
-CONNECTOR_STATUS =11
+CONNECTOR_STATUS = 11
 
 
 class UartProtokol:
     def handleSET_DATA_RES(self):
         print("set data response")
-        
         if recieveframe.get_msg_type() == MODE:
             pass
         elif recieveframe.get_msg_type() == RUN_CTRL:
@@ -35,50 +32,49 @@ class UartProtokol:
             print("clear charge")
         elif recieveframe.get_msg_type() == END_TRANSACTION__SEND:
             print("end transaction send")
-###---------------------------------------------------------------------------###
+
     def handleREAD_DATA_RES(self):
         print("read data response")
-        
         if recieveframe.get_msg_type() == MODE:
             pass
         elif recieveframe.get_msg_type() == RUN_CTRL:
-            print("charging start stop")      
+            print("charging start stop")
         elif recieveframe.get_msg_type() == ETOTAL_CHARGING_COMPLETE:
-            print("read energy")       
+            print("read energy")
         elif recieveframe.get_msg_type() == CHARGING_TIME:
-            print("read time")       
+            print("read time")
         elif recieveframe.get_msg_type() == PRMS:
-            print("read rms value of power")      
+            print("read rms value of power")
         elif recieveframe.get_msg_type() == ERR_STATUS:
             print("type of error")
         elif recieveframe.get_msg_type() == CHARGE_FINISHED:
-            print("charge finish")        
+            print("charge finish")
         elif recieveframe.get_msg_type() == CHARGING_STATUS:
-            print("charge status") 
+            print("charge status")
         elif recieveframe.get_msg_type() == CONNECTOR_STATUS:
             print("conn status")
 
-###--------------------------------------------------------------------------###
     async def handleUartFrame(self):
-        recieveframe.cmd_type = READ_DATA_RESPONSE
-        recieveframe.dataH = 0
-        recieveframe.dataL = 1
-        recieveframe.msg_type = PRMS
-        recieveframe.header = 'b'
-        recieveframe.eof = 'k'
-        print("cece")
+        # Debugging initial frame values
+        print("Initial frame values:")
+        print(f"Cmd Type: {recieveframe.get_cmd_type()}")
+        print(f"Msg Type: {recieveframe.get_msg_type()}")
+        recieveframe.set_cmd_type() = READ_DATA_RESPONSE
+        recieveframe.set_dataH() = 0
+        recieveframe.set_dataL() = 1
+        recieveframe.set_msg_type() = PRMS
+        
         while True:
             if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
                 self.handleSET_DATA_RES()
-                
             elif recieveframe.get_cmd_type() == READ_DATA_RESPONSE:
                 self.handleREAD_DATA_RES()
-                
+
             await asyncio.sleep(0.1)
 
 
 async def main():
     myUart = UartProtokol()
-    await asyncio.gather(myUart.handleUartFrame())
+    await myUart.handleUartFrame()
     
 asyncio.run(main())
