@@ -62,6 +62,7 @@ import asyncio
 class RxTxFonk:
     def __init__(self):
         self.recieve_message_err_status = None
+        self.rxSuccess = 0
 
     def uartformat_to_rawdata_send_message(self): 
         byte_list = [
@@ -91,6 +92,9 @@ class RxTxFonk:
                 recieveframe.set_dataH(byte_list[5])
                 recieveframe.set_dataL(byte_list[6])
                 self.recieve_message_err_status = 0
+                
+                self.rxSuccess = 1
+                
                 return self.recieve_message_err_status
             else:
                 print("Hatalı mesaj alındı")

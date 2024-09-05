@@ -22,6 +22,11 @@ CONNECTOR_STATUS = 11
 
 
 class UartProtokol:
+    def __init__(self, uartProtocol):
+        self.recieve_message_err_status = None
+        self.rxSuccess = 0
+        self.uartProtocol = uartProtocol
+        
     def handleSET_DATA_RES(self):
         print("set data response")
         if recieveframe.get_msg_type() == MODE:
@@ -55,22 +60,23 @@ class UartProtokol:
             print("conn status")
 
     async def handleUartFrame(self):
-        # Debugging initial frame values
-        print("Initial frame values:")
-
-        
         while True:
-            if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
-                self.handleSET_DATA_RES()
-            elif recieveframe.get_cmd_type() == READ_DATA_RESPONSE:
-                self.handleREAD_DATA_RES()
+            if(self.uartProtocol.rxSuccess == 1):
+                if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
+                    self.handleSET_DATA_RES()
+                elif recieveframe.get_cmd_type() == READ_DATA_RESPONSE:
+                    self.handleREAD_DATA_RES()
+                    
+                self.uartProtocol.rxSuccess = 0
+                
+                
 
             await asyncio.sleep(0.1)
 
 
 async def main():
     rxtx_fonk = RxTxFonk()
-    myUart = UartProtokol()    
+    myUart = UartProtokol(rxtx_fonk)    
     await asyncio.gather(rxtx_fonk.send_message(), rxtx_fonk.receive_message(), myUart.handleUartFrame())
     
 asyncio.run(main())
