@@ -59,22 +59,22 @@ class UartProtokol:
             print("conn status")
 
 ###--------------------------------------------------------------------------###
-async def handleUartFrame(self):
-    recieveframe.cmd_type = READ_DATA_RESPONSE
-    recieveframe.dataH = 0
-    recieveframe.dataL = 1
-    recieveframe.msg_type = PRMS
-    recieveframe.header = 'b'
-    recieveframe.eof = 'k'
-    print("cece")
-    while True:
-        if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
-            self.handleSET_DATA_RES()
-            
-        elif recieveframe.get_cmd_type() == READ_DATA_RESPONSE:
-            self.handleREAD_DATA_RES()
-            
-        await asyncio.sleep(0.1)
+    async def handleUartFrame(self):
+        recieveframe.cmd_type = READ_DATA_RESPONSE
+        recieveframe.dataH = 0
+        recieveframe.dataL = 1
+        recieveframe.msg_type = PRMS
+        recieveframe.header = 'b'
+        recieveframe.eof = 'k'
+        print("cece")
+        while True:
+            if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
+                self.handleSET_DATA_RES()
+                
+            elif recieveframe.get_cmd_type() == READ_DATA_RESPONSE:
+                self.handleREAD_DATA_RES()
+                
+            await asyncio.sleep(0.1)
 
 
 async def main():
