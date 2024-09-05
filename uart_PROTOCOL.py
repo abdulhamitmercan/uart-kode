@@ -66,6 +66,7 @@ async def handleUartFrame(self):
     recieveframe.msg_type = PRMS
     recieveframe.header = 'b'
     recieveframe.eof = 'k'
+    print("cece")
     while True:
         if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
             self.handleSET_DATA_RES()
