@@ -60,6 +60,13 @@ class UartProtokol:
 
 ###--------------------------------------------------------------------------###
 async def handleUartFrame(self):
+    recieveframe.cmd_type = READ_DATA_RESPONSE
+    recieveframe.dataH = 0
+    recieveframe.dataL = 1
+    recieveframe.msg_type = PRMS
+    recieveframe.header = 'b'
+    recieveframe.eof = 'k'
+    
     if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
         self.handleSET_DATA_RES()
         
