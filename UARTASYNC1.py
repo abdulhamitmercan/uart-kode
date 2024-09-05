@@ -118,8 +118,8 @@ class RxTxFonk:
                         print(f"Bayt {index}: {byte:02X}")
 
             await asyncio.sleep(0.1)
-            
-        
+            print(received_data)  
+       
 async def main():
     rxtx_fonk = RxTxFonk()
     
