@@ -72,6 +72,7 @@ async def handleUartFrame(self):
         
     elif recieveframe.get_cmd_type() == READ_DATA_RESPONSE:
         self.handleREAD_DATA_RES()
+        print("hru8u")
         
     await asyncio.sleep(0.1)
 
