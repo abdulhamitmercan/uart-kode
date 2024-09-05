@@ -74,6 +74,6 @@ class UartProtokol:
 
 async def main():
     myUart = UartProtokol()
-    await myUart.handleUartFrame()
+    await asyncio.gather(myUart.handleUartFrame())
     
 asyncio.run(main())
