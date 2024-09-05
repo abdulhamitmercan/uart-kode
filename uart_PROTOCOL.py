@@ -1,5 +1,4 @@
 from UARTASYNC1 import UARTFrame, send_message, receive_message,recieveframe,sendframe,RxTxFonk 
-import serial
 import asyncio
 from dataclasses import dataclass
 
