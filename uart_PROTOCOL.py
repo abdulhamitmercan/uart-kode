@@ -76,9 +76,8 @@ async def handleUartFrame(self):
         await asyncio.sleep(0.1)
 
 
-async def main():   
-    myUart = UartProtokol()     
-    task1 = asyncio.create_task(myUart.handleUartFrame())
-
-
+async def main():
+    myUart = UartProtokol()
+    await asyncio.gather(myUart.handleUartFrame())
+    
 asyncio.run(main())
