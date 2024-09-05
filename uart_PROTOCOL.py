@@ -59,10 +59,10 @@ class UartProtokol:
         print("Initial frame values:")
         print(f"Cmd Type: {recieveframe.get_cmd_type()}")
         print(f"Msg Type: {recieveframe.get_msg_type()}")
-        recieveframe.set_cmd_type() = READ_DATA_RESPONSE
-        recieveframe.set_dataH() = 0
-        recieveframe.set_dataL() = 1
-        recieveframe.set_msg_type() = PRMS
+        recieveframe.set_cmd_type(READ_DATA_RESPONSE)
+        recieveframe.set_dataH(0)
+        recieveframe.set_dataL(1)
+        recieveframe.set_msg_type(PRMS)
         
         while True:
             if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
