@@ -73,10 +73,11 @@ class UartProtokol:
 
             await asyncio.sleep(0.1)
 
-
+''''
 async def main():
     rxtx_fonk = RxTxFonk()
     myUart = UartProtokol(rxtx_fonk)    
     await asyncio.gather(rxtx_fonk.send_message(), rxtx_fonk.receive_message(), myUart.handleUartFrame())
     
 asyncio.run(main())
+'''
