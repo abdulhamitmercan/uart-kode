@@ -18,14 +18,14 @@ CHARGE_FINISHED = 7
 CLEAR_CHARGE = 8
 END_TRANSACTION__SEND = 9
 CHARGING_STATUS = 10 
-CONNECTOR_STATUS = 11
-
+CONNECTOR_STATUS = 11  
+DEVICE_ID = 12
+#MAX_POWER =13#SET
 
 class UartProtokol:
-    def __init__(self, uartProtocol):
+    def __init__(self, UART_HAL):
         self.recieve_message_err_status = None
-        self.rxSuccess = 0
-        self.uartProtocol = uartProtocol
+        self.UART_HAL = UART_HAL
         
     def handleSET_DATA_RES(self):
         print("set data response")
@@ -37,7 +37,7 @@ class UartProtokol:
             print("clear charge")
         elif recieveframe.get_msg_type() == END_TRANSACTION__SEND:
             print("end transaction send")
-
+ 
     def handleREAD_DATA_RES(self):
         print("read data response")
         if recieveframe.get_msg_type() == MODE:
@@ -61,22 +61,16 @@ class UartProtokol:
 
     async def handleUartFrame(self):
         while True:
-            if(self.uartProtocol.rxSuccess == 1):
+            if(self.UART_HAL.rxSuccess == 1):
                 if recieveframe.get_cmd_type() == SET_DATA_RESPONSE:
                     self.handleSET_DATA_RES()
                 elif recieveframe.get_cmd_type() == READ_DATA_RESPONSE:
                     self.handleREAD_DATA_RES()
                     
-                self.uartProtocol.rxSuccess = 0
+                self.UART_HAL.rxSuccess = 0
                 
                 
 
             await asyncio.sleep(0.1)
 
 
-async def main():
-    rxtx_fonk = RxTxFonk()
-    myUart = UartProtokol(rxtx_fonk)    
-    await asyncio.gather(rxtx_fonk.send_message(), rxtx_fonk.receive_message(), myUart.handleUartFrame())
-    
-asyncio.run(main())
