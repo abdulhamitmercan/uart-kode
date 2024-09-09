@@ -55,7 +55,7 @@ class UartProtokol:
         elif recieveframe.get_msg_type() == messageTypeData.RUN_CTRL:
             print("charging start stop")
         elif recieveframe.get_msg_type() == messageTypeData.ETOTAL_CHARGING_COMPLETE:
-            print("read energy")
+            print("read energy") 
         elif recieveframe.get_msg_type() == messageTypeData.CHARGING_TIME:
             print("read time")
         elif recieveframe.get_msg_type() == messageTypeData.CHARGING_TIME_HOURS :
