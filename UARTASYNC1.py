@@ -120,7 +120,7 @@ class RxTxFonk:
                     print("Alınan veri:")
                     for index, byte in enumerate(received_data):
                         print(f"Bayt {index}: {byte:02X}")
-                print(recieveframe.cmd_type) 
+                
             await asyncio.sleep(0.1)
         
 
