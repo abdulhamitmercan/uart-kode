@@ -93,7 +93,7 @@ class UartHandler:
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)    
         sendframe.set_msg_type(messageTypeData.CLEAR_CHARGE)    
         sendframe.set_dataL(self.a.get_baz_val())    
-            
+        print()
     async def handleSET_DATA(self):    
         
         self.sendMaxPower()  
