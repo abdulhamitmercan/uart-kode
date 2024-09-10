@@ -71,7 +71,7 @@ class UartProtokol:
             ReadDataResponse.setTimeSeconds(recieveframe.get_dataL())
             ReadDataResponse.setTimeMinutes(recieveframe.get_dataH())
             print("read time")
-            
+        
         elif recieveframe.get_msg_type() == messageTypeData.CHARGING_TIME_HOURS :
             ReadDataResponse.setTimeHours(recieveframe.get_dataL())
             print("read device time hours")  
