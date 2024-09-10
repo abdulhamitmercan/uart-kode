@@ -102,11 +102,11 @@ class RxTxFonk:
                 return self.recieve_message_err_status
 
     async def send_message(self):
-        while True:
-            formatted_message = self.uartformat_to_rawdata_send_message()
+        #while True:
+        formatted_message = self.uartformat_to_rawdata_send_message()
             #await asyncio.sleep(2)
-            ser.write(formatted_message)
-            await asyncio.sleep(0.01)
+        ser.write(formatted_message)
+            #await asyncio.sleep(0.01)
 
     async def receive_message(self):
         while True:
