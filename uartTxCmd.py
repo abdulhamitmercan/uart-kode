@@ -32,7 +32,7 @@ class UartHandler:
         sendframe.set_msg_type(messageTypeData.RUN_CTRL)
         sendframe.set_dataL(SetDataValue.START_CHARGE)
         self.txHAL.send_message()
-    setdataval.set_start_charge_val(1)
+    
     def sendMaxPower(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
         sendframe.set_msg_type(messageTypeData.MAX_POWER)
@@ -129,7 +129,7 @@ class UartHandler:
         
         self.sendClearChargeSession()
         await asyncio.sleep(0.3)
-       
+        setdataval.set_start_charge_val(1)
         if((setdataval.get_start_charge_val()== SetDataValue().START_CHARGE) ):
             
             self.sendStartCharging()    
