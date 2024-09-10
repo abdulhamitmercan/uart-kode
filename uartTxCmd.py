@@ -85,11 +85,11 @@ class UartHandler:
         sendframe.set_msg_type(messageTypeData.CHARGE_FINISHED)
         self.txHAL.send_message()
 
-    def sendClearChargeSession(self):
+    '''def sendClearChargeSession(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
         sendframe.set_msg_type(messageTypeData.RUN_CTRL)
         sendframe.set_dataL(SetDataValue.START_BUZZER)
-        self.txHAL.send_message()
+        self.txHAL.send_message()'''
 
     def sendEndTransaction(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
@@ -127,9 +127,9 @@ class UartHandler:
         self.sendSetBuzzer()
         await asyncio.sleep(0.3)
         
-      #  self.sendClearChargeSession()
-       # await asyncio.sleep(0.3)
-        setdataval.set_start_charge_val(1)
+        ''' self.sendClearChargeSession()
+        await asyncio.sleep(0.3)'''
+         
         if((setdataval.get_start_charge_val()== SetDataValue().START_CHARGE) ):
             
             self.sendStartCharging()    
