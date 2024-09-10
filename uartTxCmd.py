@@ -127,8 +127,8 @@ class UartHandler:
         self.sendSetBuzzer()
         await asyncio.sleep(0.3)
         
-        self.sendClearChargeSession()
-        await asyncio.sleep(0.3)
+      #  self.sendClearChargeSession()
+       # await asyncio.sleep(0.3)
         setdataval.set_start_charge_val(1)
         if((setdataval.get_start_charge_val()== SetDataValue().START_CHARGE) ):
             
