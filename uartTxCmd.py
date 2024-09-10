@@ -92,7 +92,7 @@ class UartHandler:
     def sendSetBuzzer(self):    
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)    
         sendframe.set_msg_type(messageTypeData.CLEAR_CHARGE)    
-        sendframe.set_dataL(self.a..get_baz_val())    
+        sendframe.set_dataL(self.a.get_baz_val())    
             
     async def handleSET_DATA(self):    
         
