@@ -1,15 +1,13 @@
 class setDataval:
-    _max_charge_val = 0
-    _baz_val = 0
-    _transaction_val = 0
-    _start_charge_val = 0
+    
     
     
     def __init__(self):
-        self._max_charge_val = None
-        self._baz_val = None
-        self._transaction_val = None
-        self._start_charge_val = None
+        self._max_charge_val = 0
+        self._baz_val = 0
+        self._transaction_val = 0
+        self._start_charge_val = 0
+        
     # max_charge_val 
     def set_max_charge_val(self, value):
         self._max_charge_val = value
