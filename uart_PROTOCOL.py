@@ -32,7 +32,7 @@ messageTypeData = MessageTypeData()
 cmdTypeData = CmdTypeData()
 
 
-#MAX_POWER =14#SET
+
 
 class UartProtokol:
     def __init__(self, UART_HAL):

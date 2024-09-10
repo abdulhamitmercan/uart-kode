@@ -26,13 +26,13 @@ class UartHandler:
 
     def __init__(self, txHAL):
         self.txHAL = txHAL
-  
+    
     def sendStartCharging(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
         sendframe.set_msg_type(messageTypeData.RUN_CTRL)
         sendframe.set_dataL(SetDataValue.START_CHARGE)
         self.txHAL.send_message()
-
+    setdataval.set_start_charge_val(1)
     def sendMaxPower(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
         sendframe.set_msg_type(messageTypeData.MAX_POWER)
@@ -129,7 +129,7 @@ class UartHandler:
         
         self.sendClearChargeSession()
         await asyncio.sleep(0.3)
-
+       
         if((setdataval.get_start_charge_val()== SetDataValue().START_CHARGE) ):
             
             self.sendStartCharging()    
@@ -180,7 +180,7 @@ class UartHandler:
 async def main():
     rxtx_fonk = RxTxFonk()
     myUart = UartProtokol(rxtx_fonk)
-    uart_handler = UartHandler(rxtx_fonk)
+    uart_handler = UartHandler(rxtx_fonk  )
     await asyncio.gather(
         rxtx_fonk.receive_message(),
         myUart.reciveHandleUartFrame(),
