@@ -1,7 +1,5 @@
 class setDataval:
     
-    
-    
     def __init__(self):
         self._max_charge_val = 0
         self._baz_val = 0
