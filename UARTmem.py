@@ -36,9 +36,9 @@ class setDataval:
     
 class SetDataResponse:
     def __init__(self):
-        self._runControl = None
-        self._clearChargeSession = None
-        self._endTransaction = None
+        self._runControl = 0
+        self._clearChargeSession = 0
+        self._endTransaction = 0
 
     def setRunControl(self, value):
         self._runControl = value
@@ -58,18 +58,19 @@ class SetDataResponse:
 
 class ReadDataResponse:
     def __init__(self):
-        self._chargingStartStop = None
-        self._energyTotalComplate = None
-        self._timeSeconds = None
-        self._timeMinutes = None
-        self._timeHours = None
-        self._rmsPowerValue = None
-        self._errorType = None
-        self._chargeFinished = None
-        self._chargeComplete = None
-        self._chargingStatus = None
-        self._connectorStatus = None
-        self._deviceId = None
+        self._chargingStartStop = 0
+        self._energyTotalComplate = 0
+        self._timeSeconds = 0
+        self._timeMinutes = 0
+        self._timeHours = 0
+        self._rmsPowerValue = 0
+        self._errorType = 0
+        self._chargeFinished = 0
+        self._chargeComplete = 0
+        self._chargingStatus = 0
+        self._connectorStatus = 0
+        self._deviceId = 0
+        
 
     def setChargingStartStop(self, value):
         self._chargingStartStop = value
