@@ -50,7 +50,7 @@ class UartProtokol:
             SetDataResponse.setClearChargeSession(recieveframe.get_dataL())
             print("clear charge")
             
-        elif recieveframe.get_msg_type() == messageTypeData.END_TRANSACTION__SEND:
+        elif recieveframe.get_msg_type() == messageTypeData.END_TRANSACTION_SEND:
             SetDataResponse.setEndTransaction(recieveframe.get_dataL())
             print("end transaction send")
 
