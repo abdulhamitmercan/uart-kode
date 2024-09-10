@@ -90,7 +90,7 @@ class UartProtokol:
             
         elif recieveframe.get_msg_type() == messageTypeData.CHARGING_STATUS:
             print("charge status")
-            print(rsp.setChargingStatus(recieveframe.get_dataL()))
+            rsp.setChargingStatus(recieveframe.get_dataL())
             #ReadDataResponse.setChargingStatus(recieveframe.get_dataL())
             
             
