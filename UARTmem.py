@@ -3,7 +3,8 @@ class setDataval:
     def __init__(self):
         self._max_charge_val = None
         self._baz_val = None
-        self._transection_val = None
+        self._transaction_val = None
+        self._start_charge_val = None
     # max_charge_val 
     def set_max_charge_val(self, value):
         self._max_charge_val = value
@@ -17,13 +18,20 @@ class setDataval:
 
     def get_baz_val(self):
         return self._baz_val
-    
-    def set_transection_val(self, value):
-        self._transection_val = value
 
-    def get_transection_val(self):
-        return self._transection_val   
-    
+    #transaction val
+    def set_transaction_val(self, value):
+        self._transaction_val = value
+
+    def get_transaction_val(self):
+        return self._transaction_val   
+
+    def set_start_charge_val(self, value):
+        self._start_charge_val = value
+
+    def get_start_charge_val(self):
+        return self._start_charge_val   
+       
     
 class SetDataResponse:
     def __init__(self):
@@ -117,7 +125,6 @@ class ReadDataResponse:
     def getConnectorStatus(self):
         return self._connectorStatus   
     
-
     def setDeviceId(self, value):
         self._deviceId = value
     def getDeviceId(self):

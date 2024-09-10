@@ -4,7 +4,7 @@ from UARTASYNC1 import RxTxFonk, sendframe
 from UARTmem import setDataval
 
 class SetDataValue:
-    # Sabit değerler 
+    # Sabit değerler  
     STOP_CHARGE = 2
     START_CHARGE = 1
 
@@ -12,7 +12,7 @@ class SetDataValue:
     END_TRANSACTION = 1
     NOT_END_TRANSACTION = 0
     START_BUZZER = 8
-    END_TRANSACTION_SEND = 9
+    
 
 
 
@@ -74,12 +74,12 @@ class UartHandler:
 
     def sendEndTransaction(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
-        sendframe.set_msg_type(SetDataValue.END_TRANSACTION_SEND)
+        sendframe.set_msg_type(messageTypeData.END_TRANSACTION_SEND)
         sendframe.set_dataL(SetDataValue.END_TRANSACTION)
 
     def sendNotEndTransaction(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
-        sendframe.set_msg_type(SetDataValue.END_TRANSACTION_SEND)
+        sendframe.set_msg_type(messageTypeData.END_TRANSACTION_SEND)
         sendframe.set_dataL(SetDataValue.NOT_END_TRANSACTION)
 
     def sendReadConnectorStatus(self):
@@ -105,8 +105,8 @@ class UartHandler:
         
         self.sendClearChargeSession()
         await asyncio.sleep(0.3)
-        
-        if(sendframe.dataL== self.setdata.START_CHARGE ):
+
+        if((setDataval.get_start_charge_val()== SetDataValue().START_CHARGE) ):
             
             self.sendStartCharging()    
             await asyncio.sleep(0.3)    
@@ -114,7 +114,7 @@ class UartHandler:
             self.sendStopCharging()
             await asyncio.sleep(0.3)
         
-        if(setDataval.get_transection_val() == self.setdata.END_TRANSACTION):
+        if(setDataval.get_transaction_val() == SetDataValue().END_TRANSACTION):
             self.sendEndTransaction()
             await asyncio.sleep(0.3)
         else:
