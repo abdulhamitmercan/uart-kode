@@ -140,6 +140,7 @@ class UartHandler:
         self.sendReadConnectorStatus()
         await asyncio.sleep(0.3)
         self.sendReadChargingStatus()
+        await asyncio.sleep(0.3)
 
     async def sendHandleUartFrame(self):
         while True:
