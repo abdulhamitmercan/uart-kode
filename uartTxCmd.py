@@ -12,13 +12,12 @@ class SetDataValue:
     END_TRANSACTION = 1
     NOT_END_TRANSACTION = 0
     START_BUZZER = 8
-    
-
 
 
 class UartHandler:
 
-
+    def __init__(self):
+        self.a = setDataval()
   
     def sendStartCharging(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
@@ -28,7 +27,7 @@ class UartHandler:
     def sendMaxPower(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
         sendframe.set_msg_type(messageTypeData.MAX_POWER)
-        sendframe.set_dataL(setDataval.get_max_charge_val())
+        sendframe.set_dataL(self.a.get_max_charge_val())
 
     def sendStopCharging(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
@@ -93,7 +92,7 @@ class UartHandler:
     def sendSetBuzzer(self):    
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)    
         sendframe.set_msg_type(messageTypeData.CLEAR_CHARGE)    
-        sendframe.set_dataL(setDataval.get_baz_val())    
+        sendframe.set_dataL(self.a..get_baz_val())    
             
     async def handleSET_DATA(self):    
         
@@ -106,7 +105,7 @@ class UartHandler:
         self.sendClearChargeSession()
         await asyncio.sleep(0.3)
 
-        if((setDataval.get_start_charge_val()== SetDataValue().START_CHARGE) ):
+        if((self.a.get_start_charge_val()== SetDataValue().START_CHARGE) ):
             
             self.sendStartCharging()    
             await asyncio.sleep(0.3)    
@@ -114,7 +113,7 @@ class UartHandler:
             self.sendStopCharging()
             await asyncio.sleep(0.3)
         
-        if(setDataval.get_transaction_val() == SetDataValue().END_TRANSACTION):
+        if(self.a.get_transaction_val() == SetDataValue().END_TRANSACTION):
             self.sendEndTransaction()
             await asyncio.sleep(0.3)
         else:
