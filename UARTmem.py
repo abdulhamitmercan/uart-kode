@@ -1,4 +1,9 @@
 class setDataval:
+    _max_charge_val = 0
+    _baz_val = 0
+    _transaction_val = 0
+    _start_charge_val = 0
+    
     
     def __init__(self):
         self._max_charge_val = None
