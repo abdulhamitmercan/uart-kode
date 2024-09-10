@@ -30,6 +30,7 @@ class MessageTypeData:
     
 messageTypeData = MessageTypeData()
 cmdTypeData = CmdTypeData()
+rsp = ReadDataResponse()
 
 #MAX_POWER =14#SET
 
@@ -89,7 +90,7 @@ class UartProtokol:
             
         elif recieveframe.get_msg_type() == messageTypeData.CHARGING_STATUS:
             print("charge status")
-            print(recieveframe.get_dataL())
+            print(rsp.setChargingStatus(recieveframe.get_dataL()))
             #ReadDataResponse.setChargingStatus(recieveframe.get_dataL())
             
             
