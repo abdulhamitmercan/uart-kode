@@ -139,6 +139,7 @@ class UartHandler:
             await asyncio.sleep(0.3)
 
     async def handleREAD_DATA(self):
+        """
         self.sendReadEnergyIns()
         await asyncio.sleep(0.3)
         self.sendReadDeviceId()
@@ -157,13 +158,14 @@ class UartHandler:
         await asyncio.sleep(0.3)
         self.sendReadConnectorStatus()
         await asyncio.sleep(0.3)
+        """
         self.sendReadChargingStatus()
         await asyncio.sleep(0.3)
 
     async def sendHandleUartFrame(self):
         while True:
             await self.handleREAD_DATA()
-            await self.handleSET_DATA()
+            #await self.handleSET_DATA()
 
 
 
