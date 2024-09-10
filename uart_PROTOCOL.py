@@ -1,5 +1,5 @@
 from UARTASYNC1 import UARTFrame, recieveframe, RxTxFonk
-from UARTmem import SetDataResponse,ReadDataResponse
+from UARTmem import setDataResponse,readDataResponse 
 import asyncio
 
 # Command and message types
@@ -30,13 +30,13 @@ class MessageTypeData:
     
 messageTypeData = MessageTypeData()
 cmdTypeData = CmdTypeData()
-rsp = ReadDataResponse()
+
 
 #MAX_POWER =14#SET
 
 class UartProtokol:
     def __init__(self, UART_HAL):
-        self.recieve_message_err_status = None
+        self.recieve_message_err_status = 0
         self.UART_HAL = UART_HAL
         
     def handleSET_DATA_RES(self):
@@ -44,15 +44,15 @@ class UartProtokol:
         if recieveframe.get_msg_type() == messageTypeData.MODE:
             pass
         elif recieveframe.get_msg_type() == messageTypeData.RUN_CTRL:
-            SetDataResponse.setRunControl(recieveframe.get_dataL())
+            setDataResponse.setRunControl(recieveframe.get_dataL())
             print("runcntrl")
             
         elif recieveframe.get_msg_type() == messageTypeData.CLEAR_CHARGE:
-            SetDataResponse.setClearChargeSession(recieveframe.get_dataL())
+            setDataResponse.setClearChargeSession(recieveframe.get_dataL())
             print("clear charge")
             
         elif recieveframe.get_msg_type() == messageTypeData.END_TRANSACTION_SEND:
-            SetDataResponse.setEndTransaction(recieveframe.get_dataL())
+            setDataResponse.setEndTransaction(recieveframe.get_dataL())
             print("end transaction send")
 
     def handleREAD_DATA_RES(self):
@@ -60,46 +60,46 @@ class UartProtokol:
         if recieveframe.get_msg_type() == messageTypeData.MODE:
             pass
         elif recieveframe.get_msg_type() == messageTypeData.RUN_CTRL:
-            ReadDataResponse.setChargingStartStop(recieveframe.get_dataL())
+            readDataResponse.setChargingStartStop(recieveframe.get_dataL())
             print("charging start stop")
             
         elif recieveframe.get_msg_type() == messageTypeData.ETOTAL_CHARGING_COMPLETE:
-            ReadDataResponse.setEnergyTotalComplate(recieveframe.get_dataL())
+            readDataResponse.setEnergyTotalComplate(recieveframe.get_dataL())
             print("read energy") 
             
         elif recieveframe.get_msg_type() == messageTypeData.CHARGING_TIME:
-            ReadDataResponse.setTimeSeconds(recieveframe.get_dataL())
-            ReadDataResponse.setTimeMinutes(recieveframe.get_dataH())
+            readDataResponse.setTimeSeconds(recieveframe.get_dataL())
+            readDataResponse.setTimeMinutes(recieveframe.get_dataH())
             print("read time")
         
         elif recieveframe.get_msg_type() == messageTypeData.CHARGING_TIME_HOURS :
-            ReadDataResponse.setTimeHours(recieveframe.get_dataL())
+            readDataResponse.setTimeHours(recieveframe.get_dataL())
             print("read device time hours")  
             
         elif recieveframe.get_msg_type() == messageTypeData.PRMS:
-            ReadDataResponse.setRmsPowerValue(recieveframe.get_dataL())
+            readDataResponse.setRmsPowerValue(recieveframe.get_dataL())
             print("read rms value of power")
             
         elif recieveframe.get_msg_type() == messageTypeData.ERR_STATUS:
-            ReadDataResponse.setErrorType(recieveframe.get_dataL())
+            readDataResponse.setErrorType(recieveframe.get_dataL())
             print("type of error")
             
         elif recieveframe.get_msg_type() == messageTypeData.CHARGE_FINISHED:
-            ReadDataResponse.setChargeFinished(recieveframe.get_dataL())
+            readDataResponse.setChargeFinished(recieveframe.get_dataL())
             print("charge finish")
             
         elif recieveframe.get_msg_type() == messageTypeData.CHARGING_STATUS:
             print("charge status")
-            rsp.setChargingStatus(recieveframe.get_dataL())
+            readDataResponse.setChargingStatus(recieveframe.get_dataL())
             #ReadDataResponse.setChargingStatus(recieveframe.get_dataL())
             
             
         elif recieveframe.get_msg_type() == messageTypeData.CONNECTOR_STATUS:
-            ReadDataResponse.setConnectorStatus(recieveframe.get_dataL())
+            readDataResponse.setConnectorStatus(recieveframe.get_dataL())
             print("conn status")
             
         elif recieveframe.get_msg_type() == messageTypeData.DEVICE_ID :
-            ReadDataResponse.setDeviceId(recieveframe.get_dataL)
+            readDataResponse.setDeviceId(recieveframe.get_dataL)
             print("read device id")
  
 

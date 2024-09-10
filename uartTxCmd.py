@@ -1,7 +1,7 @@
 import asyncio
 from uart_PROTOCOL import UartProtokol, messageTypeData, cmdTypeData
 from UARTASYNC1 import RxTxFonk, sendframe
-from UARTmem import setDataval
+from UARTmem import  setdataval
 
 class SetDataValue:
     # Sabit değerler  
@@ -14,10 +14,17 @@ class SetDataValue:
     START_BUZZER = 8
 
 
+
+
+
+        
+        
+        
+
+
 class UartHandler:
 
     def __init__(self, txHAL):
-        self.a = setDataval()
         self.txHAL = txHAL
   
     def sendStartCharging(self):
@@ -29,7 +36,7 @@ class UartHandler:
     def sendMaxPower(self):
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)
         sendframe.set_msg_type(messageTypeData.MAX_POWER)
-        sendframe.set_dataL(self.a.get_max_charge_val())
+        sendframe.set_dataL(setdataval.get_max_charge_val())
         self.txHAL.send_message()
 
     def sendStopCharging(self):
@@ -109,7 +116,7 @@ class UartHandler:
     def sendSetBuzzer(self):    
         sendframe.set_cmd_type(cmdTypeData.SET_DATA)    
         sendframe.set_msg_type(messageTypeData.CLEAR_CHARGE)    
-        sendframe.set_dataL(self.a.get_baz_val())    
+        sendframe.set_dataL(setdataval.get_baz_val())    
         self.txHAL.send_message()
 
     async def handleSET_DATA(self):    
@@ -123,7 +130,7 @@ class UartHandler:
         self.sendClearChargeSession()
         await asyncio.sleep(0.3)
 
-        if((self.a.get_start_charge_val()== SetDataValue().START_CHARGE) ):
+        if((setdataval.get_start_charge_val()== SetDataValue().START_CHARGE) ):
             
             self.sendStartCharging()    
             await asyncio.sleep(0.3)    
@@ -131,7 +138,7 @@ class UartHandler:
             self.sendStopCharging()
             await asyncio.sleep(0.3)
         
-        if(self.a.get_transaction_val() == SetDataValue().END_TRANSACTION):
+        if(setdataval.get_transaction_val() == SetDataValue().END_TRANSACTION):
             self.sendEndTransaction()
             await asyncio.sleep(0.3)
         else:
@@ -139,7 +146,7 @@ class UartHandler:
             await asyncio.sleep(0.3)
 
     async def handleREAD_DATA(self):
-        """
+        
         self.sendReadEnergyIns()
         await asyncio.sleep(0.3)
         self.sendReadDeviceId()
@@ -158,26 +165,23 @@ class UartHandler:
         await asyncio.sleep(0.3)
         self.sendReadConnectorStatus()
         await asyncio.sleep(0.3)
-        """
+        
         self.sendReadChargingStatus()
         await asyncio.sleep(0.3)
 
     async def sendHandleUartFrame(self):
         while True:
             await self.handleREAD_DATA()
-            #await self.handleSET_DATA()
+            await self.handleSET_DATA()
 
 
 
              
 async def main():
     rxtx_fonk = RxTxFonk()
-    
-    
     myUart = UartProtokol(rxtx_fonk)
     uart_handler = UartHandler(rxtx_fonk)
     await asyncio.gather(
-        #rxtx_fonk.send_message(),
         rxtx_fonk.receive_message(),
         myUart.reciveHandleUartFrame(),
         uart_handler.sendHandleUartFrame()

@@ -126,11 +126,4 @@ class RxTxFonk:
         
 
             
-"""         
-async def main():
-    rxtx_fonk = RxTxFonk()
-    
-    await asyncio.gather(rxtx_fonk.send_message(), rxtx_fonk.receive_message())
-    
-asyncio.run(main())
-"""
+

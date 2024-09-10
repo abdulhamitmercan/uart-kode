@@ -132,3 +132,6 @@ class ReadDataResponse:
     def getDeviceId(self):
         return self._deviceId
  
+readDataResponse = ReadDataResponse()
+setdataval = setDataval()
+setDataResponse = SetDataResponse()
