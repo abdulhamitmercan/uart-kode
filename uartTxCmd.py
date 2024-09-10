@@ -135,7 +135,8 @@ class UartHandler:
             self.sendStartCharging()    
             await asyncio.sleep(0.3)    
         else:
-            self.sendStopCharging()
+            self.sendStartCharging()
+            #self.sendStopCharging()
             await asyncio.sleep(0.3)
         
         if(setdataval.get_transaction_val() == SetDataValue().END_TRANSACTION):
